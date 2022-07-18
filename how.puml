@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "Domain" #DDDDDD {
+
+    class Client {
+        - Wallet $wallet
+        .. Getters ..
+        + getWallet(): Wallet
+        .. Business logic ..
+        + subtractMoney(float $amount): void
+    }
+
+    class Wallet {
+        - float $money
+        .. Business logic ..
+        + subtractMoney(float $amount): void
+    }
+
+    class Order {
+        - Item[] $items
+        .. Business logic ..
+        + calculateAmount(): float
+    }
+
+    class Item {
+        - float $price
+        .. Getters ..
+        + getPrice(): float
+    }
+
+    class OrderService {
+        - Client $client
+        - Order $order
+        .. Business logic ..
+        + makeOrder(): void
+    }
+
+    Client::$wallet o-- Wallet
+    Order::$items o-- Item
+    OrderService::$order ..> Order
+    OrderService::$client ..> Client
+}
+
+@enduml
